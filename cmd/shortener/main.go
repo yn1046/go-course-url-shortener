@@ -31,8 +31,8 @@ func mainHandler(res http.ResponseWriter, req *http.Request) {
 	} else if req.Method == http.MethodGet {
 		hash := strings.TrimPrefix(req.URL.Path, "/")
 		if val, ok := globalStorage.storage[hash]; ok {
-			res.WriteHeader(http.StatusTemporaryRedirect)
 			res.Header().Set("Location", val)
+			res.WriteHeader(http.StatusTemporaryRedirect)
 		} else {
 			res.WriteHeader(http.StatusBadRequest)
 		}
