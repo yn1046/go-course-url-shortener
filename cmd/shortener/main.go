@@ -2,6 +2,7 @@ package main
 
 import (
 	"crypto/sha1"
+	"encoding/base64"
 	"io"
 	"net/http"
 	"strings"
@@ -20,11 +21,11 @@ func mainHandler(res http.ResponseWriter, req *http.Request) {
 		urlString := string(reqData)
 		h := sha1.New()
 		io.WriteString(h, urlString)
-		hashString := string(h.Sum((nil)))[:8]
+		hashString := base64.URLEncoding.EncodeToString(h.Sum(nil))[:8]
 
 		globalStorage.storage[hashString] = urlString
 
-		body := "http://localhost:8080/" + urlString
+		body := "http://localhost:8080/" + hashString
 		res.WriteHeader(http.StatusCreated)
 		res.Write([]byte(body))
 	} else if req.Method == http.MethodGet {
