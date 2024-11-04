@@ -36,6 +36,8 @@ func mainHandler(res http.ResponseWriter, req *http.Request) {
 		} else {
 			res.WriteHeader(http.StatusBadRequest)
 		}
+	} else {
+		res.WriteHeader(http.StatusMethodNotAllowed)
 	}
 }
 
