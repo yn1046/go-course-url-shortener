@@ -34,11 +34,11 @@ func Test_mainHandler_PostGet(t *testing.T) {
 
 	// GET
 	// получаем хэш сокращённого адреса
-	cacheId := resStr[strings.LastIndex(resStr, "/")+1:]
-	assert.Equal(t, len(cacheId), 8)
+	cacheID := resStr[strings.LastIndex(resStr, "/")+1:]
+	assert.Equal(t, len(cacheID), 8)
 
 	// отправляем новый запрос
-	getRequest := httptest.NewRequest(http.MethodGet, "/"+cacheId, nil)
+	getRequest := httptest.NewRequest(http.MethodGet, "/"+cacheID, nil)
 
 	getRecorder := httptest.NewRecorder()
 	mainHandler(getRecorder, getRequest)
