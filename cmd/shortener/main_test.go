@@ -45,6 +45,7 @@ func Test_mainHandler_PostGet(t *testing.T) {
 
 	// получаем ответ
 	resGet := getRecorder.Result()
+	defer resGet.Body.Close()
 	assert.Equal(t, http.StatusTemporaryRedirect, resGet.StatusCode)
 	resGetStr := resGet.Header.Get("Location")
 
@@ -59,6 +60,7 @@ func Test_mainHandler_BadMethod(t *testing.T) {
 	mainHandler(recorder, putRequest)
 
 	res := recorder.Result()
+	defer res.Body.Close()
 	// проверяем код ответа
 	assert.Equal(t, http.StatusMethodNotAllowed, res.StatusCode)
 }
